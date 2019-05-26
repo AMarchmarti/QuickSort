@@ -1,33 +1,49 @@
 package org.lasencinas;
 
+import java.util.*;
+
 public class Quicksort {
 
-    public static void sort(int array[], int firstIndex, int lastIndex) {
+    /* ---- Behaviours ---- */
+    public static void sort(int[] array) {
+        Stack<Tarea> stack = new Stack<>();
 
-        int pivot = array[firstIndex];
-        int leftIndex = firstIndex;
-        int rightIndex = lastIndex;
-        int aux;
+        int start = 0;
+        int end = array.length - 1;
 
-        while (leftIndex < rightIndex) {
-            while (array[leftIndex] <= pivot && leftIndex < rightIndex) {
-                leftIndex++;
-            }
-            while (array[rightIndex] > pivot) {
-                rightIndex--;
-            }
-            if (leftIndex < rightIndex) {
-                aux = array[leftIndex];
-                array[leftIndex] = array[rightIndex];
-                array[rightIndex] = aux;
+        stack.push(new Tarea(start, end));
+
+        while (!stack.isEmpty()) {
+            start = stack.peek().getInitPos();
+            end = stack.peek().getFinalPos();
+
+            int pivot = partition(array, start, end);
+
+            if (pivot - 1 > start) {
+                stack.push(new Tarea(start, pivot - 1));
+            } else if (pivot + 1 < end) {
+                stack.push(new Tarea(pivot + 1, end));
             }
         }
-        array[firstIndex] = array[rightIndex];
-        array[rightIndex] = pivot;
+    }
 
-        if (firstIndex < rightIndex - 1)
-            sort(array, firstIndex, rightIndex - 1);
-        if (rightIndex + 1 < lastIndex)
-            sort(array, rightIndex + 1, lastIndex);
+    public static int partition(int array[], int start, int end) {
+        int pivot = array[end];
+        int referenceIndex = start;
+        for (int index = start; index < end; index++) {
+
+            if (array[index] <= pivot) {
+                swap(array, index, referenceIndex);
+                referenceIndex++;
+            }
+        }
+        swap(array, referenceIndex, pivot);
+        return referenceIndex;
+    }
+
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }

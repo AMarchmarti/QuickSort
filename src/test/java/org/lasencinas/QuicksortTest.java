@@ -1,24 +1,17 @@
 package org.lasencinas;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 import org.junit.Test;
+import java.util.Arrays;
 
 public class QuicksortTest {
 
-    private int[] array = {1, 5, 89, 2, 0};
-    private int[] array2 = {4, 5, 78, 23, 32, 11, 9};
+    /* ---- Properties ---- */
+    private int[] array = {1, 5, 76, 23, 54, 12, 89, 2};
 
     @Test
     public void quicksortTest() {
-
-        int[] array1Result = {0, 1, 2, 5, 89};
-        int[] array2Result = {4, 5, 9, 11, 23, 32, 78};
-
-        Quicksort.sort(array, 0, array1Result.length - 1);
-        Quicksort.sort(array2, 0, array1Result.length - 1);
-
-        assertArrayEquals(array1Result, array);
-        assertArrayEquals(array2Result, array2);
-    }
-}
+        Quicksort.sort(array);
+        Assert.assertEquals(Arrays.asList(1, 2, 5, 12, 23, 54, 76, 89), array);
+    }}
