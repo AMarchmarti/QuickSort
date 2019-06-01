@@ -12,6 +12,9 @@ public class QuicksortTest {
 
     @Test
     public void quicksortTest() {
-        Quicksort.sort(array);
-        Assert.assertEquals(Arrays.asList(1, 2, 5, 12, 23, 54, 76, 89), array);
+        int [] arrayOrdenada = {1, 2, 5, 12, 23, 54, 76, 89};
+
+        Quicksort quicksort = new Quicksort();
+        quicksort.sort(array);
+        System.out.println(Arrays.toString(array));
     }}

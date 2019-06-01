@@ -1,11 +1,12 @@
 package org.lasencinas;
 
+
 import java.util.*;
 
 public class Quicksort {
 
     /* ---- Behaviours ---- */
-    public static void sort(int[] array) {
+    public void sort(int[] array) {
         Stack<Tarea> stack = new Stack<>();
 
         int start = 0;
@@ -14,8 +15,9 @@ public class Quicksort {
         stack.push(new Tarea(start, end));
 
         while (!stack.isEmpty()) {
-            start = stack.peek().getInitPos();
-            end = stack.peek().getFinalPos();
+            Tarea tarea = stack.pop();
+            start = tarea.getInitPos();
+            end = tarea.getFinalPos();
 
             int pivot = partition(array, start, end);
 
@@ -29,16 +31,19 @@ public class Quicksort {
 
     public static int partition(int array[], int start, int end) {
         int pivot = array[end];
-        int referenceIndex = start;
-        for (int index = start; index < end; index++) {
-
-            if (array[index] <= pivot) {
-                swap(array, index, referenceIndex);
-                referenceIndex++;
+        int izq = start;
+        int der = end - 1;
+        while (izq != der){
+            if(array[izq] < pivot){
+                izq ++;
+            }else if (array[der] > pivot){
+                der --;
+            }else{
+                swap(array, izq, der);
             }
         }
-        swap(array, referenceIndex, pivot);
-        return referenceIndex;
+        swap(array, end, izq);
+        return izq;
     }
 
     public static void swap(int[] array, int i, int j) {
